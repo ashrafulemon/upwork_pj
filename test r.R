@@ -43,8 +43,10 @@ df3 = read.xlsx("I:\\1_upwork\\004_work with Jinu_____data analysis\\demo_R_Copy
 differences3 <- df2!= df3
 differences3
 a=colSums(differences3==T, na.rm=T)
+a
 sum(a)
 a=colSums(differences3==F, na.rm=T)
+a
 sum(a)
 
 # Print the indices or values where differences occur

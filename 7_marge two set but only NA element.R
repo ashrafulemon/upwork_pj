@@ -15,6 +15,23 @@ set2 <- data.frame(
   Score1 = c(90, 100, 200,NA)
 )
 
+set3 <- data.frame(
+  Name = c("Alice", "Charlie", "","sbd"),
+  Age = c(30, 22, NA,NA),
+  Score = c(95, 78, NA,400),
+  Score1 = c(90, 100, 200,NA)
+)
+#final way
+
+set1[set1 == ""] <- NA
+set2[set2 == ""] <- NA
+set3[set3 == ""] <- NA
+
+# Merge the sheets, prioritizing non-blank or non-NA values
+merged_data <- set1
+merged_data[is.na(merged_data)] <- set2[is.na(merged_data)]
+merged_data[is.na(merged_data)] <- set3[is.na(merged_data)]
+
 
 
 #way1
@@ -24,7 +41,6 @@ for (col in 1:length(set1)) {
     set2[col]  [ set1[col] == "" | is.na(set1[col]) ]
 }
 set1
-
 
 
 #way2

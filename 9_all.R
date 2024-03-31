@@ -46,19 +46,31 @@ write.xlsx(df1_f,"I:\\r project up\\demo r prg\\r_maximo_needed_1.xlsx",asTable 
 
 
 
+
+
+
+
+
 #df2_1 = df1_1 == df1_2           # sheet 1
 df2= read.xlsx("I:\\r project up\\demo r prg\\5_need_em_10.xlsx",sheet=1,colNames=T,
                detectDates = T)
 df2_1= df2[-c(13,14,26,33)]
 #df2_1[40] = as.Date( as.integer( unlist(df2_1[40])), origin = "1899-12-30")
 
+# Set JAVA_HOME environment variable
 
 #df2_f= df1_f                     # sheet 2
 df2_f= read.xlsx("I:\\r project up\\demo r prg\\5_need_em_10.xlsx",sheet=2,colNames=T,
                detectDates = F)
-df2_f[4]= as.character(unlist(df1_f[4]))
-df2_f[21]= as.character(unlist(df1_f[21]))
-df2_f[22]= as.character(unlist(df1_f[22]))
+
+df2_f[4]= as.character(unlist(df2_f[4]))
+df2_f[21]= as.character(unlist(df2_f[21]))
+df2_f[22]= as.character(unlist(df2_f[22]))
+df2_f[[4]]= gsub("&amp;", "&", df2_f[[4]])
+df2_f[[4]]= gsub("&gt;", ">", df2_f[[4]])
+df2_f[[21]]= gsub("&amp;", "&", df2_f[[21]])
+df2_f[[22]]= gsub("&amp;", "&", df2_f[[22]])
+
 
 df2_f[7] = as.Date( as.integer( unlist(df2_f[7])), origin = "1899-12-30")
 df2_f[8] = as.Date( as.integer( unlist(df2_f[8])), origin = "1899-12-30")
@@ -73,7 +85,7 @@ df2_f[25] = as.Date( as.integer( unlist(df2_f[25])), origin = "1899-12-30")
 
 
 # df1_1 == df1_2 == needed sheet 1
-differences1 <- df1_1 != df1_2
+differences1 <- df1_1 != df1_2   # NA+___= NA golo count check kore
 differences1
 a=colSums(differences1==T, na.rm=T)
 sum(a)
@@ -96,7 +108,7 @@ if (any(!is.na(differences1) & differences1)) {
 }
 
 #another way
-are_identical <- identical(df1_1,df1_2)
+are_identical <- identical(df1_1,df1_2)  # NA golo count check kore
 
 if (are_identical) {
   cat("The datasets are identical.\n")
@@ -112,6 +124,7 @@ if (are_identical) {
 differences2 <- df2_1 != df1_2
 differences2
 a=colSums(differences2==T, na.rm=T)
+a
 a=colSums(differences2==F, na.rm=T)
 sum(a)
 # Print the indices or values where differences occur
@@ -144,6 +157,7 @@ differences3 <- df2_f != df1_f
 differences3
 a=colSums(differences3==T, na.rm=T)
 sum(a)
+a
 a=colSums(differences3==F, na.rm=T)
 sum(a)
 
